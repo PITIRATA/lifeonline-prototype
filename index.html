@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#f6659b">
-  <meta name="description" content="ต้นแบบบัตรสะสมแต้ม TULIB LifeONLine สำหรับโครงงาน OM316">
-  <title>บัตรสะสมแต้ม | TULIB LifeONLine</title>
+  <meta name="description" content="ต้นแบบเมนูบริการหอสมุดและบัตรสะสมแต้ม TULIB LifeONLine สำหรับโครงงาน OM316">
+  <title>เมนูบริการหอสมุด | TULIB LifeONLine</title>
   <link rel="stylesheet" href="style.css">
   <script src="app.js" defer></script>
 </head>
@@ -15,14 +15,58 @@
       <div class="line-name"><span class="verified" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c3.7 0 7 1.6 9 3v6c0 5.1-3.9 9.4-9 11-5.1-1.6-9-5.9-9-11V5c2-1.4 5.3-3 9-3Z"/><path d="m7.8 11.7 2.7 2.8 5.7-5.8" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>TULIB LifeONLine</div>
       <span class="preview-badge">ต้นแบบ · OM316</span>
     </header>
+    <main id="menu-view" class="menu-view" aria-labelledby="menu-title">
+      <div class="menu-intro">
+        <span class="menu-overline">หอสมุดป๋วย อึ๊งภากรณ์ · มธ. รังสิต</span>
+        <h1 id="menu-title" tabindex="-1">เมนูบริการหอสมุด</h1>
+        <p>เลือกบริการที่ต้องการจากเมนู LifeONLine</p>
+      </div>
+      <section class="rich-menu" aria-labelledby="rich-title">
+        <div class="rich-title"><h2 id="rich-title">Rich Menu</h2><span class="tu-brand"><span>TU</span> LIBRARY</span></div>
+        <div id="rich-grid" class="rich-grid"></div>
+        <a class="points-entry" href="#points" data-testid="link-open-points">
+          <svg class="entry-coins" viewBox="0 0 84 66" fill="none" aria-hidden="true">
+            <defs>
+              <linearGradient id="entry-gold" x1="13" y1="9" x2="57" y2="59" gradientUnits="userSpaceOnUse"><stop stop-color="#fff4a0"/><stop offset="1" stop-color="#ffbe48"/></linearGradient>
+              <linearGradient id="entry-purple" x1="41" y1="11" x2="76" y2="57" gradientUnits="userSpaceOnUse"><stop stop-color="#ead0ff"/><stop offset="1" stop-color="#a061da"/></linearGradient>
+            </defs>
+            <ellipse cx="42" cy="60" rx="31" ry="4" fill="#754321" opacity=".18"/>
+            <circle cx="57" cy="34" r="22" fill="#7540a3"/>
+            <circle cx="55" cy="31" r="22" fill="url(#entry-purple)" stroke="#f1dbff"/>
+            <circle cx="55" cy="31" r="16" stroke="#ba82e4" stroke-width="1.5"/>
+            <circle cx="34" cy="36" r="24" fill="#cb742d"/>
+            <circle cx="31" cy="32" r="24" fill="url(#entry-gold)" stroke="#fff5b5"/>
+            <circle cx="31" cy="32" r="18" stroke="#e09a3f" stroke-width="1.5"/>
+            <path d="M31 19c2 8 5 11 13 13-8 2-11 5-13 13-2-8-5-11-13-13 8-2 11-5 13-13Z" fill="#fff1a0" stroke="#d48632"/>
+            <path d="M72 3v9m-4.5-4.5h9M77 48v8m-4-4h8" stroke="#ac6b25" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <span class="entry-copy"><span class="entry-name">บัตรสะสมแต้ม <span class="new-tag" aria-hidden="true">ใหม่</span></span><span class="entry-desc">ทำภารกิจ รับแต้ม และแลกรางวัล</span></span>
+          <span class="entry-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 5 7 7-7 7"/></svg></span>
+        </a>
+      </section>
+      <footer class="menu-footer"><span>ต้นแบบเมนู LINE สำหรับการนำเสนอ ยังไม่ได้เชื่อมกับบัญชี LINE จริง</span></footer>
+    </main>
+    <main id="library-view" class="menu-view" aria-labelledby="library-title" hidden>
+      <div class="menu-intro menu-intro-inner">
+        <a href="#menu" class="icon-button return-menu" aria-label="กลับเมนูบริการหอสมุด" data-testid="link-library-to-menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></a>
+        <div><span class="menu-overline">TULIB LifeONLine</span><h1 id="library-title" tabindex="-1">My Library</h1><p>รวมบริการหนังสือและบริการออนไลน์ของหอสมุด</p></div>
+      </div>
+      <section class="rich-menu" aria-labelledby="library-rich-title">
+        <div class="rich-title"><h2 id="library-rich-title">My Library</h2><span class="tu-brand"><span>TU</span> LIBRARY</span></div>
+        <div id="library-grid" class="rich-grid"></div>
+      </section>
+      <footer class="menu-footer"><span>เมนูตัวอย่าง บริการหอสมุดเดิมยังไม่ได้เชื่อมกับระบบจริง</span></footer>
+    </main>
+    <main id="points-view" aria-labelledby="points-title" hidden>
     <div class="web-head">
+      <a href="#menu" class="icon-button return-menu" aria-label="กลับเมนูบริการหอสมุด" data-testid="link-points-to-menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></a>
       <div class="web-title"><strong>บัตรสะสมแต้ม</strong><span>หอสมุดป๋วย อึ๊งภากรณ์ · มธ. รังสิต</span></div>
       <button type="button" class="icon-button" data-action="help" aria-label="วิธีใช้บัตรสะสมแต้ม" title="วิธีใช้งาน"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.8 9.3a2.3 2.3 0 1 1 3.9 1.6c-1 .9-1.7 1.1-1.7 2.7m0 2.8h.01" stroke-linecap="round"/></svg></button>
     </div>
     <div class="banner">
       <div class="banner-copy">
         <span class="eyebrow">LIFEONLINE POINT COLLECTION</span>
-        <h1>สะสมแต้ม<br>แลกรางวัล</h1>
+        <h1 id="points-title" tabindex="-1">สะสมแต้ม<br>แลกรางวัล</h1>
         <button type="button" class="balance-button" data-tab-go="rewards" aria-label="ดูคะแนนที่ใช้ได้และรางวัล"><span aria-hidden="true" class="mini-coin">✦</span><strong id="hero-points">24</strong><span>แต้มที่ใช้ได้</span><span class="balance-arrow" aria-hidden="true">›</span></button>
       </div>
       <svg class="coin-art" viewBox="0 0 400 235" fill="none" aria-hidden="true">
@@ -51,8 +95,9 @@
       <button type="button" role="tab" aria-selected="false" aria-controls="panel" id="tab-rewards" data-tab="rewards" tabindex="-1"><span class="tab-icon"></span>Reward &amp; Point</button>
       <button type="button" role="tab" aria-selected="false" aria-controls="panel" id="tab-leaderboard" data-tab="leaderboard" tabindex="-1"><span class="tab-icon"></span>Leaderboard</button>
     </nav>
-    <main id="panel" class="panel" role="tabpanel" aria-labelledby="tab-challenge" tabindex="0"></main>
+    <div id="panel" class="panel" role="tabpanel" aria-labelledby="tab-challenge" tabindex="0"></div>
     <footer><strong>TULIB LifeONLine</strong><span>ต้นแบบเพื่อการนำเสนอ · คะแนนและข้อมูลทั้งหมดเป็นข้อมูลจำลอง</span></footer>
+    </main>
   </div>
   <dialog id="dialog" aria-labelledby="dialog-title"><div id="dialog-content"></div></dialog>
   <div id="toast" role="status" aria-live="polite" class="toast"></div>

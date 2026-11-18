@@ -30,6 +30,58 @@ function e(value) {
 function score(n) { return `<span class="pts">+${n} แต้ม</span>`; }
 function badge(label, style = 'ok') { return `<span class="status ${style}">${e(label)}</span>`; }
 
+const richServices = [
+  {id:'library', name:'My Library', sub:'รวมบริการห้องสมุด', route:'library'},
+  {id:'lot', name:'LOT', sub:'รายการอุปกรณ์ LOTs', detail:'ดูรายการอุปกรณ์ที่หอสมุดมีให้ยืม เช่น อุปกรณ์ถ่ายภาพ เครื่องดนตรี และเกม'},
+  {id:'booking', name:'Booking', sub:'จองห้อง', detail:'เลือกจองห้องค้นคว้าหรือพื้นที่ให้บริการของหอสมุด'},
+  {id:'recommendation', name:'Recommendation', sub:'แนะนำหนังสือ', detail:'ค้นพบหนังสือน่าอ่านจากเมนูแนะนำหนังสือของหอสมุด'},
+  {id:'qr', name:'My QR-Code', sub:'คิวอาร์โค้ด', detail:'แสดงคิวอาร์โค้ดสำหรับเข้าใช้บริการหอสมุด'},
+  {id:'live', name:'Live Chat', sub:'ติดต่อเจ้าหน้าที่', detail:'สอบถามข้อมูลห้องสมุดกับเจ้าหน้าที่ผ่านแชต LINE'},
+];
+const libraryServices = [
+  {id:'renew', name:'List&Renew', sub:'รายการยืมและต่ออายุ', detail:'ตรวจสอบรายการที่ยืมและต่ออายุรายการที่เข้าเงื่อนไข'},
+  {id:'borrow', name:'Borrow', sub:'ยืมหนังสือ', detail:'เข้าถึงบริการยืมหนังสือของหอสมุด'},
+  {id:'tracking', name:'Tracking', sub:'ติดตามสถานะหนังสือ', detail:'ติดตามสถานะหนังสือจากรายการของคุณ'},
+  {id:'fine', name:'Pay Fine', sub:'ชำระค่าปรับ', detail:'ตรวจสอบค่าปรับและเข้าถึงช่องทางชำระค่าปรับของหอสมุด'},
+  {id:'services', name:'U-Services', sub:'รวมบริการออนไลน์', detail:'ดูเมนูบริการออนไลน์อื่น ๆ ของหอสมุด'},
+  {id:'guide', name:'Guideline', sub:'วิธีใช้งาน', detail:'เปิดคู่มือแนะนำขั้นตอนการใช้บริการหอสมุด'},
+];
+const views = Object.fromEntries(['menu','library','points'].map(id => [id, document.querySelector(`#${id}-view`)]));
+function menuImage(service) {
+  return `<img class="rich-art" src="menu-art/${service.id}.webp" alt="" decoding="async">`;
+}
+function menuCard(service) {
+  const label = service.id === 'recommendation' ? 'Recom&shy;mendation' : e(service.name);
+  const content = `${menuImage(service)}<strong>${label}</strong><span>${e(service.sub)}</span>`;
+  const attrs = `class="rich-card" data-testid="card-service-${service.id}"`;
+  return service.route ? `<a ${attrs} href="#${service.route}">${content}</a>` : `<button ${attrs} type="button" data-menu-service="${service.id}">${content}</button>`;
+}
+document.querySelector('#rich-grid').innerHTML = richServices.map(menuCard).join('');
+document.querySelector('#library-grid').innerHTML = libraryServices.map(menuCard).join('');
+function serviceDialog(id) {
+  const service = [...richServices, ...libraryServices].find(item=>item.id===id);
+  if (!service?.detail) return;
+  dialogView('บริการเดิมใน LifeONLine',service.name,`<div class="service-summary">${menuImage(service)}<div><h3>${e(service.sub)}</h3><p>${e(service.detail)}</p></div></div><p>แสดงเป็นตัวอย่างเท่านั้น ต้นแบบไม่ได้เชื่อมกับบริการจริง</p><div class="actions"><button type="button" class="primary" data-action="close">กลับไปที่เมนู</button></div>`);
+}
+let currentView;
+function showRoute() {
+  const hash = location.hash.slice(1);
+  const route = Object.hasOwn(views,hash) ? hash : 'menu';
+  if (route === currentView) return;
+  const previous = currentView;
+  currentView = route;
+  closeDialog();
+  Object.entries(views).forEach(([id, view]) => {view.hidden = id !== route;});
+  document.title = `${({menu:'เมนูบริการหอสมุด', library:'My Library', points:'บัตรสะสมแต้ม'})[route]} | TULIB LifeONLine`;
+  window.scrollTo(0, 0);
+  if (previous) {
+    const target = route === 'menu'
+      ? views.menu.querySelector(previous === 'points' ? '.points-entry' : '[data-testid="card-service-library"]')
+      : views[route].querySelector('h1');
+    target?.focus({preventScroll:true});
+  }
+}
+
 const features = ['My Library', 'Booking', 'Book Recommendation', 'My QR-Code'];
 const reportOptions = [...features, 'LOTs', 'Live Chat', 'อื่น ๆ'];
 const missions = [
@@ -250,7 +302,8 @@ document.addEventListener('submit',event=>{
 document.addEventListener('click',event=>{
   const b=event.target.closest('button');
   if(!b || b.disabled) return;
-  const {tab,tabGo,action,filter,mission,reward,redeem,claim,visit}=b.dataset;
+  const {tab,tabGo,action,filter,mission,reward,redeem,claim,visit,menuService}=b.dataset;
+  if(menuService){serviceDialog(menuService);return;}
   if(tab){goTab(tab);return;}
   if(tabGo){goTab(tabGo,true);return;}
   if(filter){state.filter=filter;paint();panel.querySelector(`[data-filter="${filter}"]`).focus({preventScroll:true});return;}
@@ -285,3 +338,5 @@ document.addEventListener('click',event=>{
   }
 });
 paint();
+window.addEventListener('hashchange', showRoute);
+showRoute();
